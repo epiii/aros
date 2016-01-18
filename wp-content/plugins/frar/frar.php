@@ -36,15 +36,48 @@
 		return '<a href="'.$url.'" class="button"><span>'.do_shortcode($content).'</span></a>';
 	}
 	
-	// epi --
+	// epi ------
 	function frar_display($atts, $content = null) {
 		extract( shortcode_atts( array('url' => '#'), $atts ) );
 		$ret = '<video id="video" style="float: right; margin-right: 1em;"></video>';
 		$ret.='<button id="fullscreenbtn"> X </button>';
+		// $x=plugin_dir_path( __FILE__ ).'/js/epiJS.js';
+		// $x=plugin_dir_url(__FILE__);
+		// var_dump($x);
 		return $ret;
-	}
-	add_shortcode('frarDisplay', 'frar_display');
-	// epi --
+	}add_shortcode('frarDisplay', 'frar_display');
+	
+	function frar_include_js() {
+		// wp_enqueue_style( 'style-name', get_stylesheet_uri() );
+		// wp_enqueue_script( 'script-name', get_template_directory_uri() . '/js/testJS.js', array(), '1.0.0', true );
+		wp_enqueue_script('smoother',plugin_dir_url(__FILE__).'/js/smoother.js', array(), '1.0.0', true );
+		wp_enqueue_script('compatibility',plugin_dir_url(__FILE__).'/js/compatibility.js', array(), '1.0.0', true );
+		wp_enqueue_script('objectdetect',plugin_dir_url(__FILE__).'/js/js-objectdetect/objectdetect.js', array(), '1.0.0', true );
+		wp_enqueue_script('upperbody',plugin_dir_url(__FILE__).'/js/js-objectdetect/objectdetect.upperbody.js', array(), '1.0.0', true );
+		wp_enqueue_script('jquery',plugin_dir_url(__FILE__).'/js/jquery.js', array(), '1.0.0', true );
+	}add_action( 'wp_enqueue_scripts', 'frar_include_js' );
+	
+	function frar_display_products(){
+		$ul='<ul id="list" class="products">';
+		$args = array(
+			'post_type'      => 'product',
+			'posts_per_page' => 2
+		);
+		$loop = new WP_Query( $args );
+		if ( $loop->have_posts() ) {
+			while ( $loop->have_posts() ) : 
+				$loop->the_post();
+				// var_dump($loop->the_post());
+				wc_get_template_part( 'content', 'product' );
+			endwhile;
+		} else {
+			echo __( 'No products found' );
+		}
+		wp_reset_postdata();
+		$ul.='</ul>';	
+		return $ul;
+	}add_shortcode('frarDisplayProducts','frar_display_products');
+	// epi ------
 	
 	// add_shortcode('download', 'button_saya');
 	// add_shortcode("frarDisplay2", "testcode2");
