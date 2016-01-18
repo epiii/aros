@@ -6,8 +6,9 @@
 	Author: Jipeus Version: 1.0
 	Author URI: http://www.orangorangan.com
 	*/
-	add_action('admin_menu', 'okeh_menu');
-	function okeh_menu() {
+	add_action('publish_post', 'frar_menu');
+	// add_action('admin_menu', 'frar_menu');
+	function frar_menu() {
 	    // Plugin FRAR Menu = Page title , judul halaman
 	    // frar Plugin = Menu Title, judul menu yang akan kita klik
 	    // ’1′ = Capability, berhubungan dengan hak akses user atas plugin
@@ -25,4 +26,27 @@
 		echo 'HAHAHA! plugin saya sukses';
 		echo '</div>';
 	}
+
+	Function testCode($atts){
+		return "Ini adalah shortcode pertama EPI.";
+	}
+
+	function button_saya($atts, $content = null) {
+		extract( shortcode_atts( array('url' => '#'), $atts ) );
+		return '<a href="'.$url.'" class="button"><span>'.do_shortcode($content).'</span></a>';
+	}
+	
+	// epi --
+	function frar_display($atts, $content = null) {
+		extract( shortcode_atts( array('url' => '#'), $atts ) );
+		$ret = '<video id="video" style="float: right; margin-right: 1em;"></video>';
+		$ret.='<button id="fullscreenbtn"> X </button>';
+		return $ret;
+	}
+	add_shortcode('frarDisplay', 'frar_display');
+	// epi --
+	
+	// add_shortcode('download', 'button_saya');
+	// add_shortcode("frarDisplay2", "testcode2");
+	// add_shortcode("frarDisplay", "testCode");
 ?>
