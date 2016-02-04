@@ -15,19 +15,25 @@
 	// epi ------
 	function frar_display($atts, $content = null) {
 		extract( shortcode_atts( array('url' => '#'), $atts ) );
-		$ret = '<video id="video" style="float: right; margin-right: 1em;"></video>';
-		$ret.='<button id="fullscreenbtn"> X </button>';
+		$ret ='<video xcontrols id="video" style="float: right; margin-right: 1em;"></video>';
+		$ret.='<a href="#" style="" class="button" id="fullscreenbtn"> <i class="im-icon-fullscreen"></i></a>';
+		$ret.='<img id="shirt" xsrc="../../latihan/CV/FP/img/img2/s001.png" xstyle="position: absolute; display:block;">';
+		$ret.='<div id="list"></div>';
+    	$ret.='<br><div class="overlay">
+					<b>Recommended Size :</b>  
+   			     	<p id="sizeInfoT" style="float:right;position:absolute;z-index:1;color:red;font-size:30px;z-index:1;">...</p>
+    		   </div>';
 		return $ret;
 	}add_shortcode('frarDisplay', 'frar_display');
 	
 	function frar_include_js() {
 		if(is_page('virtual-fitting-room')){
-			wp_enqueue_script('jquery',plugin_dir_url(__FILE__).'/js/jquery.js', array(), '1.0.0', true );
+			// wp_enqueue_script('jquery',plugin_dir_url(__FILE__).'/js/jquery.js', array(), '1.0.0', true );
 			wp_enqueue_script('compatibility',plugin_dir_url(__FILE__).'/js/compatibility.js', array(), '1.0.0', true );
 			wp_enqueue_script('smoother',plugin_dir_url(__FILE__).'/js/smoother.js', array(), '1.0.0', true );
 			wp_enqueue_script('objectdetect',plugin_dir_url(__FILE__).'/js/js-objectdetect/objectdetect.js', array(), '1.0.0', true );
 			wp_enqueue_script('upperbody',plugin_dir_url(__FILE__).'/js/js-objectdetect/objectdetect.upperbody.js', array(), '1.0.0', true );
-			wp_enqueue_script('shirtupperbody4',plugin_dir_url(__FILE__).'/js/shirtupperbody4.js', array(), '1.0.0', true );
+			wp_enqueue_script('shirtupperbody5',plugin_dir_url(__FILE__).'/js/shirtupperbody5.js', array(), '1.0.0', true );
 		}
 	}add_action( 'wp_print_scripts', 'frar_include_js' );
 	
