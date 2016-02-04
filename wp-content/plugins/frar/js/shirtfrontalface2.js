@@ -1,7 +1,7 @@
 window.onload = function() {
 	// var detectLib = objectdetect.upperbody;
 	var detectLib = objectdetect.frontalface_alt;
-	listProduct();
+	// listProduct();
 	// cek compatibility with browser
 	var smoother = new Smoother([0.9999999, 0.9999999, 0.999, 0.999], [0, 0, 0, 0]),
 		video = document.getElementById('video'),
