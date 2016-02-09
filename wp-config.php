@@ -79,6 +79,8 @@ $table_prefix  = 'ar_';
  */
 define('WP_DEBUG', false);
 
+/* Multisite */
+ define( 'WP_ALLOW_MULTISITE', true );
 /* That's all, stop editing! Happy blogging. */
 
 /** Absolute path to the WordPress directory. */

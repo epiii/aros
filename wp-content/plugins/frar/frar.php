@@ -1,18 +1,23 @@
 <?php
 	/*
-	Plugin Name: frar  okeh epiii
-	URI: http://www.orangorangan.com
+	Plugin Name: frar  (Fitting Room Augmented Reality)
+	URI: http://www.yukbikinweb.com
 	Description: Plugin belajar
-	Author: Jipeus Version: 1.0
-	Author URI: http://www.orangorangan.com
+	Author: Elfrianto Version: 1.0
+	Author URI: http://www.yukbikinweb.com
 	*/
 
-	function button_saya($atts, $content = null) {
-		extract( shortcode_atts( array('url' => '#'), $atts ) );
-		return '<a href="'.$url.'" class="button"><span>'.do_shortcode($content).'</span></a>';
-	}
-	
 	// epi ------
+	function frar_include_js() {
+		if(is_page('virtual-fitting-room')){
+			wp_enqueue_script('compatibility',plugin_dir_url(__FILE__).'/js/compatibility.js', array(), '1.0.0', true );
+			wp_enqueue_script('smoother',plugin_dir_url(__FILE__).'/js/smoother.js', array(), '1.0.0', true );
+			wp_enqueue_script('objectdetect',plugin_dir_url(__FILE__).'/js/js-objectdetect/objectdetect.js', array(), '1.0.0', true );
+			wp_enqueue_script('upperbody',plugin_dir_url(__FILE__).'/js/js-objectdetect/objectdetect.upperbody.js', array(), '1.0.0', true );
+			wp_enqueue_script('shirtupperbody5',plugin_dir_url(__FILE__).'/js/shirtupperbody5.js', array(), '1.0.0', true );
+		}
+	}add_action( 'wp_print_scripts', 'frar_include_js' );
+
 	function frar_display($atts, $content = null) {
 		extract( shortcode_atts( array('url' => '#'), $atts ) );
 		$ret ='<video xcontrols id="video" style="float: right; margin-right: 1em;"></video>';
@@ -25,17 +30,6 @@
     		   </div>';
 		return $ret;
 	}add_shortcode('frarDisplay', 'frar_display');
-	
-	function frar_include_js() {
-		if(is_page('virtual-fitting-room')){
-			// wp_enqueue_script('jquery',plugin_dir_url(__FILE__).'/js/jquery.js', array(), '1.0.0', true );
-			wp_enqueue_script('compatibility',plugin_dir_url(__FILE__).'/js/compatibility.js', array(), '1.0.0', true );
-			wp_enqueue_script('smoother',plugin_dir_url(__FILE__).'/js/smoother.js', array(), '1.0.0', true );
-			wp_enqueue_script('objectdetect',plugin_dir_url(__FILE__).'/js/js-objectdetect/objectdetect.js', array(), '1.0.0', true );
-			wp_enqueue_script('upperbody',plugin_dir_url(__FILE__).'/js/js-objectdetect/objectdetect.upperbody.js', array(), '1.0.0', true );
-			wp_enqueue_script('shirtupperbody5',plugin_dir_url(__FILE__).'/js/shirtupperbody5.js', array(), '1.0.0', true );
-		}
-	}add_action( 'wp_print_scripts', 'frar_include_js' );
 	
 	function frar_display_products(){
 		$ul='<ul id="list" class="products">';
@@ -58,4 +52,9 @@
 		return $ul;
 	}add_shortcode('frarDisplayProducts','frar_display_products');
 	// epi ------
-?>
+
+	function button_saya($atts, $content = null) {
+		extract( shortcode_atts( array('url' => '#'), $atts ) );
+		return '<a href="'.$url.'" class="button"><span>'.do_shortcode($content).'</span></a>';
+	}
+	?>
